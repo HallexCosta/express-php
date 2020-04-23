@@ -1,0 +1,34 @@
+{
+	"name": "hallex/express",
+	"description": "Import route control into your project",
+	"minimum-stability": "stable",
+	"license": "property",
+	"homepage": "http://hallex.zapto.org",
+	"author": [
+		{
+			"name": "HallexCosta",
+			"email": "hallex.costa@hotmail.com",
+			"role": "Developer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Router\\": "src/",
+			"Router\\Express\\": "src/App/",
+			"Router\\Core\\": "src/Core/",
+			"Router\\Strategy\\": "src/Strategy/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Integration\\": "tests/integration/",
+			"Tests\\Unit\\": "tests/unit/"
+		}
+	},
+	"require": {
+		"php": "^7.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.1"
+	}
+}
