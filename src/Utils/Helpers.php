@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Utils;
+namespace Express\Utils;
 
 /**
  * class Helpers

@@ -1,9 +1,9 @@
 <?php
 
-namespace Router\Express;
+namespace Express\Application;
 
-use Router\Core\RouterCore;
-use Router\Interfaces\Router\RouterCoreContract;
+use Express\Core\Router\RouterCore;
+use Express\Interfaces\Router\RouterCoreContract;
 
 /**
  * class Express

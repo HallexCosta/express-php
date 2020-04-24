@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Interfaces\Router;
+namespace Express\Interfaces\Router;
 
 /**
  * class RouteCoreContract

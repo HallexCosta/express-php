@@ -1,10 +1,10 @@
 <?php
 
-namespace Router\Abstracts\Protocol;
+namespace Express\Abstracts\Protocol;
 
-use Router\Core\HTTP\Request;
-use Router\Core\HTTP\Response;
-use Router\Interfaces\Protocol\HTTPContract;
+use Express\Core\HTTP\Request;
+use Express\Core\HTTP\Response;
+use Express\Interfaces\Protocol\HTTPContract;
 
 /**
  * class HTTP

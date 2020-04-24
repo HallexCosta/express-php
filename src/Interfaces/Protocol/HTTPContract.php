@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Interfaces\Protocol;
+namespace Express\Interfaces\Protocol;
 
 /**
  * class HTTPContract

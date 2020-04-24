@@ -1,11 +1,11 @@
 <?php
 
-namespace Router\Core;
+namespace Express\Core\Router;
 
-use Router\Utils\Helpers;
-use Router\Strategy\Strategy;
-use Router\Interfaces\Router\RouterCoreContract;
-use Router\Interfaces\DesignPatterns\Singleton\SingletonContract;
+use Express\Utils\Helpers;
+use Express\Strategy\Strategy;
+use Express\Interfaces\Router\RouterCoreContract;
+use Express\Interfaces\DesignPatterns\Singleton\SingletonContract;
 
 /**
  * class RouteCore

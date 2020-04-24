@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Interfaces\DesignPatterns\Strategy;
+namespace Express\Interfaces\DesignPatterns\Strategy;
 
 /**
  * class StrategyContract

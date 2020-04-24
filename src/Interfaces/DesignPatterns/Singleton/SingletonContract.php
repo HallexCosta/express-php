@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Interfaces\DesignPatterns\Singleton;
+namespace Express\Interfaces\DesignPatterns\Singleton;
 
 /**
  * class SingletonContract

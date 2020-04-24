@@ -1,11 +1,11 @@
 <?php
 
-namespace Router\Strategy;
+namespace Express\Strategy;
 
-use Router\Utils\Helpers;
-use Router\Core\HTTP\Request;
-use Router\Core\HTTP\Response;
-use Router\Interfaces\DesignPatterns\Strategy\StrategyContract;
+use Express\Utils\Helpers;
+use Express\Core\HTTP\Request;
+use Express\Core\HTTP\Response;
+use Express\Interfaces\DesignPatterns\Strategy\StrategyContract;
 
 /**
  * class Strategy
@@ -15,7 +15,7 @@ final class Strategy implements StrategyContract
 	/**
 	 * @var const ROUTER_STRATEGY_NAMESPACE
 	 */
-	private const ROUTER_STRATEGY_NAMESPACE = '\\Router\\Strategy\\';
+	private const ROUTER_STRATEGY_NAMESPACE = '\\Express\\Strategy\\';
 	/**
 	 * execute
 	 * @param  string $uri

@@ -13,10 +13,10 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Router\\": "src/",
-			"Router\\Express\\": "src/App/",
-			"Router\\Core\\": "src/Core/",
-			"Router\\Strategy\\": "src/Strategy/"
+			"Express\\": "src/",
+			"Express\\Application\\": "src/App/",
+			"Express\\Core\\": "src/Core/",
+			"Express\\Strategy\\": "src/Strategy/"
 		}
 	},
 	"autoload-dev": {

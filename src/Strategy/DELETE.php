@@ -1,13 +1,17 @@
 <?php
 
-namespace Router\Strategy;
+namespace Express\Strategy;
 
-use Router\Abstracts\Protocol\HTTP;
+use Express\Abstracts\Protocol\HTTP;
 
 /**
  * class DELETE
  */
 final class DELETE extends HTTP
 {
+	/**
+	 * invalidRouteHttpException
+	 * @return void
+	 */
 	protected function invalidRouteHttpException() : void {}
 }

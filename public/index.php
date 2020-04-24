@@ -2,9 +2,9 @@
 
 require_once '../bootstrap.php';
 
-use Router\Express\Express;
-use Router\Core\HTTP\Request;
-use Router\Core\HTTP\Response;
+use Express\Application\Express;
+use Express\Core\HTTP\Request;
+use Express\Core\HTTP\Response;
 
 $express = new Express;
 $router = $express->router();
@@ -31,7 +31,7 @@ $router->put('/', function(Request $request, Response $response) {
  * Build route: delete
  */
 $router->delete('/', function(Request $request, Response $response) {
-	return 'Home Route :D(DELETE)';
+	return 'Home Route :D (DELETE)';
 });
 /**
  * Run all routes

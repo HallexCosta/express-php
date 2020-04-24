@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Core\HTTP;
+namespace Express\Core\HTTP;
 
 /**
  * class Response
