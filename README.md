@@ -27,11 +27,11 @@
 [](#usage)
 ## Usage
 ```php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once '../bootstrap.php';
 
-use Router\Express\Express;
-use Router\Core\HTTP\Request;
-use Router\Core\HTTP\Response;
+use Express\Application\Express;
+use Express\Core\HTTP\Request;
+use Express\Core\HTTP\Response;
 
 $express = new Express;
 $router = $express->router();
