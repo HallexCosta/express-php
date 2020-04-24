@@ -3,13 +3,19 @@
 namespace Router\Express;
 
 use Router\Core\RouterCore;
+use Router\Interfaces\Router\RouterCoreContract;
+
 /**
  * class Express
  */
 final class Express
 {
-	final public function router() : RouterCore
+	/**
+	 * router
+	 * @return RouterCoreContract
+	 */
+	final public function router() : RouterCoreContract
 	{
-		return new RouterCore;
+		return RouterCore::instance();
 	}
 }

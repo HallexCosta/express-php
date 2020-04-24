@@ -1,6 +1,6 @@
 <?php
 
-namespace Router\Interfaces;
+namespace Router\Interfaces\Router;
 
 /**
  * class RouteCoreContract
@@ -35,4 +35,9 @@ interface RouterCoreContract
 	 * @return RouterCoreContract
 	 */
 	public function delete(string $route, \Closure $method) : RouterCoreContract;
+	/**
+	 * run
+	 * @return void
+	 */
+	public function run() : void;
 }

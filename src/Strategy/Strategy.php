@@ -5,7 +5,7 @@ namespace Router\Strategy;
 use Router\Utils\Helpers;
 use Router\Core\HTTP\Request;
 use Router\Core\HTTP\Response;
-use Router\Interfaces\Strategy\StrategyContract;
+use Router\Interfaces\DesignPatterns\Strategy\StrategyContract;
 
 /**
  * class Strategy
