@@ -2,49 +2,55 @@
 
 namespace Express\Abstracts\Protocol;
 
+use Closure;
+use SplSubject;
+use SplObserver;
+
 use Express\Core\HTTP\Request;
 use Express\Core\HTTP\Response;
 use Express\Interfaces\Protocol\HTTPContract;
+use Express\Interfaces\DesignPatterns\Strategy\StrategyContract;
+
 
 /**
  * class HTTP
  */
-abstract class HTTP implements HTTPContract
+abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 {
 	/**
+	 * Throw exception if it is not a GET, POST, PUT or Delete Request
 	 * invalidRouteHttpException
 	 * @return void
 	 */
 	abstract protected function invalidRouteHttpException() : void;
 	/**
-	 * execute
-	 * @param  string $uri
-	 * @param  array  $routes
+	 * __construct
+	 * @param string  $route
+	 * @param Closure $method
+	 */
+	final public function __construct(string $route, Closure $method)
+	{
+		$this->route = $route;
+		$this->method = $method;
+	}
+	/**
+	 * update
+	 * @param  SplSubject $subject
 	 * @return void
 	 */
-	final public function execute(string $uri, array $routes) : void
+	final public function update(SplSubject $subject) : void
 	{
-		if ($this->verify($uri, $routes)) {
-			echo call_user_func_array(
-				$routes[$uri],
-				['request' => new Request, 'response' => new Response]
-			);
-		} else {
-			$this->invalidRouteHttpException();
-			//throw new \InvalidRouteHttpRequestPost("404 not found");
+		$isCurrentRoute = $subject->uri() === $this->route;
+		if ($isCurrentRoute) {
+			$this->run();
 		}
 	}
 	/**
-	 * verify
-	 * @param  string $uri
-	 * @param  array  $routes
-	 * @return bool
+	 * run
+	 * @return void
 	 */
-	final private function verify(string $uri, array $routes) : bool
+	final public function run() : void
 	{
-		if (in_array($uri, array_keys($routes))) {
-			return true;
-		}
-		return false;
+		echo ($this->method)(new Request, new Response);
 	}
 }

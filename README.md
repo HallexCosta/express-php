@@ -8,6 +8,7 @@
 **Maintenance**
 * Request
 * Response
+* Headers
 
 ## How to Use?
 
@@ -27,7 +28,7 @@
 [](#usage)
 ## Usage
 ```php
-require_once '../bootstrap.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Express\Application\Express;
 use Express\Core\HTTP\Request;
@@ -73,6 +74,6 @@ $router->run();
 	"age": 17,
 	"role": "Developer",
 	"startDate": "22/04/2020",
-	"latestUpdate": "23/04/2020 17:46"
+	"latestUpdate": "24/04/2020 20:10"
 }
 ```

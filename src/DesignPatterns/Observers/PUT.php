@@ -1,6 +1,6 @@
 <?php
 
-namespace Express\Strategy;
+namespace Express\DesignPatterns\Observers;
 
 use Express\Abstracts\Protocol\HTTP;
 
@@ -10,8 +10,11 @@ use Express\Abstracts\Protocol\HTTP;
 final class PUT extends HTTP
 {
 	/**
+	 * Throw exception if it is not a PUT Request
 	 * invalidRouteHttpException
 	 * @return void
 	 */
-	protected function invalidRouteHttpException() : void {}
+	public function invalidRouteHttpException() : void
+	{
+	}
 }

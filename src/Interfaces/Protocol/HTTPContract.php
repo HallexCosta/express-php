@@ -8,11 +8,8 @@ namespace Express\Interfaces\Protocol;
 interface HTTPContract
 {
 	/**
-	 * execute
-	 * @param  string $uri
-	 * @param  array  $routes
-	 * @param  string $requestMethod
+	 * run
 	 * @return void
 	 */
-	public function execute(string $uri, array $routes) : void;
+	public function run() : void;
 }

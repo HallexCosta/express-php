@@ -3,16 +3,13 @@
 namespace Express\Interfaces\DesignPatterns\Strategy;
 
 /**
- * class StrategyContract
+ * interface StrategyContract
  */
 interface StrategyContract
 {
 	/**
-	 * execute
-	 * @param  string $uri
-	 * @param  array  $routes
-	 * @param  string $requestMethod
-	 * @return void
+	 * run
+	 * @return StrategyContract
 	 */
-	public function execute(string $uri, array $routes, string $requestMethod) : void;
+	public function run() : void;
 }
