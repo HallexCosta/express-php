@@ -2,9 +2,11 @@
 
 namespace Express\Core\Router;
 
+use Closure;
 use SplSubject;
 use SplObserver;
 use SplObjectStorage;
+
 use Express\Config\Config;
 use Express\Utils\Helpers;
 use Express\Strategy\Strategy;
@@ -74,7 +76,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * @param  \Closure $method
 	 * @return RouterCoreContract
 	 */
-	final public function get(string $route, \Closure $method) : RouterCoreContract
+	final public function get(string $route, Closure $method) : RouterCoreContract
 	{
 		$observer = new GET($route, $method);
 		$isGetRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
@@ -89,7 +91,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * @param  \Closure $method
 	 * @return RouterCoreContract
 	 */
-	final public function post(string $route, \Closure $method) : RouterCoreContract
+	final public function post(string $route, Closure $method) : RouterCoreContract
 	{
 		$observer = new POST($route, $method);
 		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
@@ -104,7 +106,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * @param  \Closure $method
 	 * @return RouterCoreContract
 	 */
-	final public function put(string $route, \Closure $method) : RouterCoreContract
+	final public function put(string $route, Closure $method) : RouterCoreContract
 	{
 		$observer = new PUT($route, $method);
 		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
@@ -119,7 +121,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * @param  \Closure $method
 	 * @return RouterCoreContract
 	 */
-	final public function delete(string $route, \Closure $method) : RouterCoreContract
+	final public function delete(string $route, Closure $method) : RouterCoreContract
 	{
 		$observer = new DELETE($route, $method);
 		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
