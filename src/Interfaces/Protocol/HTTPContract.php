@@ -13,23 +13,20 @@ interface HTTPContract
 	 */
 	public function run() : void;
 	/**
-	 * verify
+	 * verifyURI
 	 * @param  string $uri
+	 * @return bool
+	 */
+	public function verifyURI(string $uri) : bool;
+	/**
+	 * verifyURI
 	 * @param  string $requestMethod
 	 * @return bool
 	 */
-	public function verify(string $uri, string $requestMethod) : bool;
+	public function verifyRequestMethod(string $requestMethod) : bool;
 	/**
 	 * requestMethodHTTPInvoked
 	 * @return string
 	 */
 	public function requestMethodHTTPInvoked() : string;
-	/**
-	 * Throw exception if it is not a GET, POST, PUT or DELETE Request
-	 * invalidHTTPRoute
-	 * @param	string $uri
-	 * @param	string $requestMethod
-	 * @return	void
-	 */
-	public function invalidHTTPRoute(string $uri, string $requestMethod) : void;
 }

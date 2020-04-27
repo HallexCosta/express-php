@@ -21,28 +21,8 @@ use Express\Interfaces\{
 /**
  * class HTTP
  */
-abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
+class HTTP implements HTTPContract, StrategyContract, SplObserver
 {
-	/**
-	 * Throw exception if it is not a GET,POST, PUT or DELETE Request
-	 * invalidHTTPRoute
-	 * @param	string $uri
-	 * @param	string $requestMethod
-	 * @return	void
-	 */
-	public function invalidHTTPRoute(string $uri, string $requestMethod) : void
-	{
-		$isCurrentHTTPMethod = $requestMethod === $this->requestMethodHTTPInvoked();
-		if ($isCurrentHTTPMethod) {
-			throw new RouteNotDefinedException(
-				sprintf(
-					'<b>Error:</b> The route <b>"%s"</b> has not been defined as <b>%s</b>',
-					$uri,
-					$requestMethod
-				)
-			);
-		}
-	}
 	/**
 	 * __construct
 	 * @param string  $route
@@ -60,14 +40,8 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	 */
 	final public function update(SplSubject $subject) : void
 	{
-		try {
-			$this->verify($subject->uri(), $subject->requestMethod())
-			? $this->run()
-			: $this->invalidHTTPRoute($subject->uri(), $subject->requestMethod());
-		} catch(Exception $e) {
-			echo '<pre>';
-			print $e->getMessage();
-		}
+		$this->verifyURI($subject->uri()) && $this->verifyRequestMethod($subject->requestMethod())
+		? $this->run() : null;
 	}
 	/**
 	 * run
@@ -75,19 +49,30 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	 */
 	final public function run() : void
 	{
-		echo ($this->method)(new Request, new Response);
+		$method = ($this->method)(new Request, new Response);
+		empty($method)
+		? print "{$this->requestMethodHTTPInvoked()}: {$this->route}"
+		: print $method;
+
 	}
 	/**
-	 * verify
+	 * verifyURI
 	 * @param  string $uri
 	 * @param  string $requestMethod
 	 * @return bool
 	 */
-	final public function verify(string $uri, string $requestMethod) : bool
+	final public function verifyURI(string $uri) : bool
 	{
 		return $uri === $this->route
-		&&
-		$requestMethod === $this->requestMethodHTTPInvoked()
+		? true : false;
+	}
+	/**
+	 * verifyRequestMethod
+	 * @return bool
+	 */
+	final public function verifyRequestMethod(string $requestMethod) : bool
+	{
+		return $requestMethod === $this->requestMethodHTTPInvoked()
 		? true : false;
 	}
 	/**
@@ -97,6 +82,6 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	final public function requestMethodHTTPInvoked() : string
 	{
 		$methodHTTP = explode('\\', get_called_class());
-		return array_pop($methodHTTP);
+		return strtoupper(array_pop($methodHTTP));
 	}
 }

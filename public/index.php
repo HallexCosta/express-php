@@ -3,11 +3,13 @@
 require_once '../bootstrap.php';
 
 use Express\Application\Express;
-use Express\Core\HTTP\Request;
-use Express\Core\HTTP\Response;
+use Express\Core\{
+	HTTP\Request,
+	HTTP\Response
+};
 
-$express = new Express;
-$router = $express->router();
+$app = new Express;
+$router = $app->router();
 
 /**
  * Build route: get

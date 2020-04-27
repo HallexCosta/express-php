@@ -7,15 +7,15 @@ use SplSubject;
 use SplObserver;
 use SplObjectStorage;
 
+use Express\{
+	Config\Config,
+	Core\Exceptions\RouteNotDefinedException,
+	Strategy\Strategy
+};
 use Express\Interfaces\{
 	DesignPatterns\Singleton\SingletonContract,
 	Router\RouterCoreContract
 };
-
-
-use Express\Config\Config;
-use Express\Utils\Helpers;
-use Express\Strategy\Strategy;
 use Express\DesignPatterns\Observers\{
 	DELETE,
 	GET,
@@ -43,7 +43,11 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	/**
 	 * @var SplObjectStorage $observers
 	 */
-	private SplObjectStorage $observers;
+	public SplObjectStorage $observers;
+	/**
+	 * @var array $validRoutes;
+	 */
+	public array $validRoutes;
 	/**
 	 * instance
 	 * @return SingletonContract
@@ -84,6 +88,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function get(string $route, Closure $method) : void
 	{
+		$this->setValidRoutes(strtoupper(__FUNCTION__), $route);
 		$this->attach(new GET($route, $method));
 	}
 	/**
@@ -94,6 +99,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function post(string $route, Closure $method) : void
 	{
+		$this->setValidRoutes(strtoupper(__FUNCTION__), $route);
 		$this->attach(new POST($route, $method));
 	}
 	/**
@@ -104,6 +110,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function put(string $route, Closure $method) : void
 	{
+		$this->setValidRoutes(strtoupper(__FUNCTION__), $route);
 		$this->attach(new PUT($route, $method));
 	}
 	/**
@@ -114,6 +121,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function delete(string $route, Closure $method) : void
 	{
+		$this->setValidRoutes(strtoupper(__FUNCTION__), $route);
 		$this->attach(new DELETE($route, $method));
 	}
 	/**
@@ -133,6 +141,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	final public function run() : void
 	{
 		$this->notify();
+		$this->routeInvalidException();
 	}
 	/**
 	 * attach
@@ -156,6 +165,26 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 		return $this;
 	}
 	/**
+	 * routeInvalidException
+	 * @return void
+	 */
+	final public function routeInvalidException() : void
+	{
+		if (!in_array($this->uri, $this->validRoutes())) {
+			try {
+				throw new RouteNotDefinedException(
+					sprintf(
+						'Error: The route "%s" has not been defined as %s',
+						$this->uri,
+						$this->requestMethod
+					)
+				);
+			} catch(RouteNotDefinedException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+	/**
 	 * normalizeURI
 	 * @param  string $route
 	 * @return string
@@ -175,6 +204,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 		return $this->uri;
 	}
 	/**
+	 * Get method HTTP
 	 * requestMethod
 	 * @return string
 	 */
@@ -182,9 +212,21 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	{
 		return $this->requestMethod;
 	}
-	final public function requestHTTP() : string
+	/**
+	 * setValidRoutes
+	 * @return void
+	 */
+	final public function setValidRoutes(string $requestMethodHTTPInvoked, string $route) : void
 	{
-		return $this->requestHTTP;
+		$this->validRoutes[$requestMethodHTTPInvoked][] = $route;
+	}
+	/**
+	 * validRoutes
+	 * @return array
+	 */
+	final public function validRoutes() : array
+	{
+		return $this->validRoutes[$this->requestMethod];
 	}
 	/**
 	 * debug

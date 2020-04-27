@@ -2,8 +2,10 @@
 
 namespace Express\Application;
 
-use Express\Core\Router\RouterCore;
-use Express\Interfaces\Router\RouterCoreContract;
+use Express\{
+	Core\Router\RouterCore,
+	Interfaces\Router\RouterCoreContract
+};
 
 /**
  * class Express

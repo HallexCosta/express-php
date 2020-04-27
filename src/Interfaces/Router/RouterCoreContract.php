@@ -38,6 +38,11 @@ interface RouterCoreContract
 	 */
 	public function delete(string $route, Closure $method) : void;
 	/**
+	 * routeInvalidException
+	 * @return void
+	 */
+	public function routeInvalidException() : void;
+	/**
 	 * run
 	 * @return void
 	 */

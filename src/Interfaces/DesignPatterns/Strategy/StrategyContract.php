@@ -8,8 +8,8 @@ namespace Express\Interfaces\DesignPatterns\Strategy;
 interface StrategyContract
 {
 	/**
-	 * run
+	 * requestMethodHTTPInvoked
 	 * @return StrategyContract
 	 */
-	public function run() : void;
+	public function requestMethodHTTPInvoked() : string;
 }
