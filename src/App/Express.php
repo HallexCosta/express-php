@@ -7,6 +7,7 @@ use Express\{
 	Interfaces\Router\RouterCoreContract
 };
 
+
 /**
  * class Express
  */
@@ -19,5 +20,15 @@ final class Express
 	final public function router() : RouterCoreContract
 	{
 		return RouterCore::instance();
+	}
+	/**
+	 * use
+	 * @param  string $routes
+	 * @return void
+	 */
+	final public function use(string $routes) : void
+	{
+		$router = $this->router();
+		require_once $routes;
 	}
 }

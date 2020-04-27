@@ -1,3 +1,4 @@
+
 # Express
 
 ### "*Import system route in your project with express*"
@@ -27,12 +28,15 @@
 
 [](#usage)
 ## Usage
+> **Public folder content is an example of how to use Express correctly**
 ```php
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Express\Application\Express;
-use Express\Core\HTTP\Request;
-use Express\Core\HTTP\Response;
+use Express\Core\HTTP\{
+	Request,
+	Response
+};
 
 $app = new Express;
 $router = $app->router();
