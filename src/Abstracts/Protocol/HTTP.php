@@ -40,10 +40,8 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	 */
 	final public function update(SplSubject $subject) : void
 	{
-		$isCurrentRoute = $subject->uri() === $this->route;
-		if ($isCurrentRoute) {
-			$this->run();
-		}
+		$this->verify($subject->uri(), $subject->requestMethod() )
+		? $this->run() : null;
 	}
 	/**
 	 * run
@@ -52,5 +50,27 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	final public function run() : void
 	{
 		echo ($this->method)(new Request, new Response);
+	}
+	/**
+	 * verify
+	 * @param  string $uri
+	 * @param  string $requestMethod
+	 * @return bool
+	 */
+	final public function verify(string $uri, string $requestMethod) : bool
+	{
+		return $uri === $this->route
+		&&
+		$requestMethod === $this->requestMethodHTTPInvoked()
+		? true : false;
+	}
+	/**
+	 * requestMethodHTTPInvoked
+	 * @return string
+	 */
+	final public function requestMethodHTTPInvoked() : string
+	{
+		$methodHTTP = explode('\\', get_called_class());
+		return array_pop($methodHTTP);
 	}
 }

@@ -73,62 +73,42 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	/**
 	 * get
 	 * @param  string   $route
-	 * @param  \Closure $method
-	 * @return RouterCoreContract
+	 * @param  Closure  $method
+	 * @return void
 	 */
-	final public function get(string $route, Closure $method) : RouterCoreContract
+	final public function get(string $route, Closure $method) : void
 	{
-		$observer = new GET($route, $method);
-		$isGetRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
-		if ($isGetRequest) {
-			$this->attach($observer);
-		}
-		return $this;
+		$this->attach(new GET($route, $method));
 	}
 	/**
 	 * post
 	 * @param  string   $route
-	 * @param  \Closure $method
-	 * @return RouterCoreContract
+	 * @param  Closure  $method
+	 * @return void
 	 */
-	final public function post(string $route, Closure $method) : RouterCoreContract
+	final public function post(string $route, Closure $method) : void
 	{
-		$observer = new POST($route, $method);
-		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
-		if ($isPostRequest) {
-			$this->attach($observer);
-		}
-		return $this;
+		$this->attach(new POST($route, $method));
 	}
 	/**
 	 * put
 	 * @param  string   $route
-	 * @param  \Closure $method
-	 * @return RouterCoreContract
+	 * @param  Closure  $method
+	 * @return void
 	 */
-	final public function put(string $route, Closure $method) : RouterCoreContract
+	final public function put(string $route, Closure $method) : void
 	{
-		$observer = new PUT($route, $method);
-		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
-		if ($isPostRequest) {
-			$this->attach($observer);
-		}
-		return $this;
+		$this->attach(new PUT($route, $method));
 	}
 	/**
 	 * delete
 	 * @param  string   $route
-	 * @param  \Closure $method
-	 * @return RouterCoreContract
+	 * @param  Closure  $method
+	 * @return void
 	 */
-	final public function delete(string $route, Closure $method) : RouterCoreContract
+	final public function delete(string $route, Closure $method) : void
 	{
-		$observer = new DELETE($route, $method);
-		$isPostRequest = $this->requestMethod() === strtoupper(__FUNCTION__);
-		if ($isPostRequest) {
-			$this->attach($observer);
-		}
-		return $this;
+		$this->attach(new DELETE($route, $method));
 	}
 	/**
 	 * notify
@@ -155,12 +135,12 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function attach(SplObserver $observer) : SplSubject
 	{
-		$this->observers->attach($observer);
+		$id = spl_object_hash($observer);
+		$this->observers->attach($observer, $id);
 		return $this;
 	}
 	/**
 	 * detach
-	 * @param  string $requestMethod
 	 * @param  string $route
 	 * @return RouterCoreContract
 	 */
@@ -195,6 +175,10 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	final public function requestMethod() : string
 	{
 		return $this->requestMethod;
+	}
+	final public function requestHTTP() : string
+	{
+		return $this->requestHTTP;
 	}
 	/**
 	 * debug

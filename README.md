@@ -73,7 +73,6 @@ $router->run();
 	"name": "Hállex da Silva Costa",
 	"age": 17,
 	"role": "Developer",
-	"startDate": "22/04/2020",
-	"latestUpdate": "24/04/2020 20:10"
+	"startDate": "22/04/2020"
 }
 ```
