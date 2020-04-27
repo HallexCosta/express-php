@@ -24,4 +24,12 @@ interface HTTPContract
 	 * @return string
 	 */
 	public function requestMethodHTTPInvoked() : string;
+	/**
+	 * Throw exception if it is not a GET, POST, PUT or DELETE Request
+	 * invalidHTTPRoute
+	 * @param	string $uri
+	 * @param	string $requestMethod
+	 * @return	void
+	 */
+	public function invalidHTTPRoute(string $uri, string $requestMethod) : void;
 }

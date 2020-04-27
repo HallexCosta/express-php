@@ -9,12 +9,4 @@ use Express\Abstracts\Protocol\HTTP;
  */
 final class PUT extends HTTP
 {
-	/**
-	 * Throw exception if it is not a PUT Request
-	 * invalidRouteHttpException
-	 * @return void
-	 */
-	public function invalidRouteHttpException() : void
-	{
-	}
 }

@@ -5,11 +5,17 @@ namespace Express\Abstracts\Protocol;
 use Closure;
 use SplSubject;
 use SplObserver;
+use Exception;
 
-use Express\Core\HTTP\Request;
-use Express\Core\HTTP\Response;
-use Express\Interfaces\Protocol\HTTPContract;
-use Express\Interfaces\DesignPatterns\Strategy\StrategyContract;
+use Express\Core\{
+	Exceptions\RouteNotDefinedException,
+	HTTP\Request,
+	HTTP\Response
+};
+use Express\Interfaces\{
+	DesignPatterns\Strategy\StrategyContract,
+	Protocol\HTTPContract
+};
 
 
 /**
@@ -18,11 +24,25 @@ use Express\Interfaces\DesignPatterns\Strategy\StrategyContract;
 abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 {
 	/**
-	 * Throw exception if it is not a GET, POST, PUT or Delete Request
-	 * invalidRouteHttpException
-	 * @return void
+	 * Throw exception if it is not a GET,POST, PUT or DELETE Request
+	 * invalidHTTPRoute
+	 * @param	string $uri
+	 * @param	string $requestMethod
+	 * @return	void
 	 */
-	abstract protected function invalidRouteHttpException() : void;
+	public function invalidHTTPRoute(string $uri, string $requestMethod) : void
+	{
+		$isCurrentHTTPMethod = $requestMethod === $this->requestMethodHTTPInvoked();
+		if ($isCurrentHTTPMethod) {
+			throw new RouteNotDefinedException(
+				sprintf(
+					'<b>Error:</b> The route <b>"%s"</b> has not been defined as <b>%s</b>',
+					$uri,
+					$requestMethod
+				)
+			);
+		}
+	}
 	/**
 	 * __construct
 	 * @param string  $route
@@ -40,8 +60,14 @@ abstract class HTTP implements SplObserver, StrategyContract, HTTPContract
 	 */
 	final public function update(SplSubject $subject) : void
 	{
-		$this->verify($subject->uri(), $subject->requestMethod() )
-		? $this->run() : null;
+		try {
+			$this->verify($subject->uri(), $subject->requestMethod())
+			? $this->run()
+			: $this->invalidHTTPRoute($subject->uri(), $subject->requestMethod());
+		} catch(Exception $e) {
+			echo '<pre>';
+			print $e->getMessage();
+		}
 	}
 	/**
 	 * run

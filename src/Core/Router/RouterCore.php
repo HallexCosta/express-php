@@ -7,15 +7,21 @@ use SplSubject;
 use SplObserver;
 use SplObjectStorage;
 
+use Express\Interfaces\{
+	DesignPatterns\Singleton\SingletonContract,
+	Router\RouterCoreContract
+};
+
+
 use Express\Config\Config;
 use Express\Utils\Helpers;
 use Express\Strategy\Strategy;
-use Express\DesignPatterns\Observers\GET;
-use Express\DesignPatterns\Observers\PUT;
-use Express\DesignPatterns\Observers\POST;
-use Express\DesignPatterns\Observers\DELETE;
-use Express\Interfaces\Router\RouterCoreContract;
-use Express\Interfaces\DesignPatterns\Singleton\SingletonContract;
+use Express\DesignPatterns\Observers\{
+	DELETE,
+	GET,
+	POST,
+	PUT
+};
 
 /**
  * class RouteCore

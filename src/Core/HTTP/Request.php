@@ -8,10 +8,10 @@ namespace Express\Core\HTTP;
 final class Request
 {
 	/**
-	 * getBody
+	 * body
 	 * @return mixed
 	 */
-	final public function getBody()
+	final public function body()
 	{
 		return file_get_contents('php://input');
 	}
