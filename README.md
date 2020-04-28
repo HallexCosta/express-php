@@ -66,9 +66,8 @@ $router->delete('/', function(Request $request, Response $response) {
 	return 'Home Route :D (DELETE)';
 });
 /**
- * Run all routes
+ * Run all routes automatized
  */
-$router->run();
 ```
 
 ## Contributor

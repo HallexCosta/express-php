@@ -43,11 +43,11 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	/**
 	 * @var SplObjectStorage $observers
 	 */
-	public SplObjectStorage $observers;
+	private SplObjectStorage $observers;
 	/**
 	 * @var array $validRoutes;
 	 */
-	public array $validRoutes;
+	private array $validRoutes;
 	/**
 	 * instance
 	 * @return SingletonContract
@@ -69,6 +69,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 */
 	final public function __destruct()
 	{
+		$this->run();
 		$this->debug();
 	}
 	/**
@@ -138,10 +139,11 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * run
 	 * @return void
 	 */
-	final public function run() : void
+	final private function run() : void
 	{
 		$this->notify();
-		$this->routeInvalidException();
+		if (!in_array($this->uri, $this->validRoutes()))
+			$this->routeInvalidException();
 	}
 	/**
 	 * attach
@@ -168,20 +170,18 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * routeInvalidException
 	 * @return void
 	 */
-	final public function routeInvalidException() : void
+	final private function routeInvalidException() : void
 	{
-		if (!in_array($this->uri, $this->validRoutes())) {
-			try {
-				throw new RouteNotDefinedException(
-					sprintf(
-						'Error: The route "%s" has not been defined as %s',
-						$this->uri,
-						$this->requestMethod
-					)
-				);
-			} catch(RouteNotDefinedException $e) {
-				echo $e->getMessage();
-			}
+		try {
+			throw new RouteNotDefinedException(
+				sprintf(
+					'Error: The route "%s" has not been defined as %s',
+					$this->uri,
+					$this->requestMethod
+				)
+			);
+		} catch(RouteNotDefinedException $e) {
+			echo $e->getMessage();
 		}
 	}
 	/**
@@ -189,7 +189,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * @param  string $route
 	 * @return string
 	 */
-	final public function normalizeURI(string $route) : string
+	final private function normalizeURI(string $route) : string
 	{
 		$route = rtrim($route, '/');
 		return $route === '' ? '/' : $route;
@@ -232,7 +232,7 @@ final class RouterCore implements RouterCoreContract, SingletonContract, SplSubj
 	 * debug
 	 * @return void
 	 */
-	final public function debug()
+	final private function debug()
 	{
 		if (Config::DEBUG_CLASS_ROUTE_CORE) {
 			foreach ($this as $property) {
