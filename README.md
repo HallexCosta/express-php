@@ -70,12 +70,6 @@ $router->delete('/', function(Request $request, Response $response) {
  */
 ```
 
-## Contributor
-```json
-{
-	"name": "Hállex da Silva Costa",
-	"age": 17,
-	"role": "Developer",
-	"startDate": "22/04/2020"
-}
-```
+# Author
+| [<img src="https://avatars2.githubusercontent.com/u/55293671?s=200&v=4"><br><sub>@HallexCosta</sub>](https://github.com/HallexCosta) |
+| :---: |
