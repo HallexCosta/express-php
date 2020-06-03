@@ -2,7 +2,7 @@
 	"name": "hallex/express",
 	"description": "Import route control into your project",
 	"minimum-stability": "stable",
-	"license": "property",
+	"license": "MIT",
 	"homepage": "http://hallex.zapto.org",
 	"author": [
 		{
