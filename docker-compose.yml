@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  # php-apache:
+  #   image: php:7.4-apache
+  #   container_name: express-php-apache
+  #   build: 
+  #     context: .
+  #     dockerfile: .docker/Dockerfile.php-apache
+  #   ports:
+  #     - "8182:80"
+  #   volumes:
+  #     - .:/var/www/html
+  #     - ./php.ini:/usr/local/etc/php/php.ini
+
+  php-cli:
+    image: php:7.4-cli
+    container_name: express-php-cli
+    build: 
+      context: .
+      dockerfile: .docker/Dockerfile.php-cli
+    ports:
+      - "8181:3333"
+    volumes:
+      - .:/express-php
+
+volumes:
+  .:

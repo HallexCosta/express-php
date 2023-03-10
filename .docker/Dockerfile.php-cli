@@ -1,0 +1,11 @@
+FROM php:7.4-cli
+
+WORKDIR /express-php
+
+# RUN chown -R www-data:www-data /var/www/html
+# RUN chmod -R 755 /var/www/html
+
+# PHP extensions
+# RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+CMD php -S 0.0.0.0:3333 -t ./
